@@ -1,0 +1,54 @@
+﻿<Window x:Class="FileTagExporter.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:FileTagExporter" 
+        xmlns:valueConverters="clr-namespace:FileTagExporter.ValueConverters"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="File Tag Exporter" Height="250" Width="600"
+        MinHeight="225" MinWidth="500">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid x:Name="Overlay" Panel.ZIndex="1000" Visibility="{Binding Path=IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Background="{DynamicResource MaterialDesignShadowBrush}" Opacity="0.5">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar Width="90" Height="16" IsIndeterminate="True" Style="{DynamicResource MaterialDesignCircularProgressBar}" Margin="0 0 0 90"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="StatusText" Text="{Binding Path=StatusText, FallbackValue=Loading}" 
+                           Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                           Foreground="{DynamicResource MaterialDesignDarkForeground}">
+                    </TextBlock>
+                    <TextBlock 
+                           Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                           Foreground="{DynamicResource MaterialDesignDarkForeground}">
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard Duration="0:0:3" RepeatBehavior="Forever">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Text">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="."/>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:1" Value=".."/>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="..."/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ContentRoot">
+            <ContentControl Grid.Column="1" Content="{Binding Path=Navigation.CurrentView}"/>
+        </Grid>
+    </Grid>
+</Window>

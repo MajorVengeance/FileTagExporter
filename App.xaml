@@ -1,0 +1,23 @@
+﻿<Application x:Class="FileTagExporter.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:FileTagExporter.ViewModels"
+             xmlns:view="clr-namespace:FileTagExporter.Views"
+             xmlns:local="clr-namespace:FileTagExporter">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type TypeName=viewModel:ProcessResultsViewModel}">
+                <view:ProcessResultsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=viewModel:FileSelectorViewModel}">
+                <view:FileSelectorView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

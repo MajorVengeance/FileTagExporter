@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="FileTagExporter.Views.ProcessResultsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FileTagExporter.Views"
+             mc:Ignorable="d" 
+             Background="DeepSkyBlue"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DataGrid ItemsSource="{Binding Path=ProcessResults}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Tags"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
