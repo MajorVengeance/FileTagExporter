@@ -4,17 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FileTagExporter.Views"
+             xmlns:converters="clr-namespace:FileTagExporter.ValueConverters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="DeepSkyBlue"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:StringListToStringValueConverter x:Key="ListValueConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=ProcessResults}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Path=ProcessResults}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Tags"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"/>
+                <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"/>
+                <DataGridTextColumn Binding="{Binding Path=Tags, Converter={StaticResource ListValueConverter}}" Header="Tags"/>
+                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
+                    <TextBlock Text="Foo"/>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
+                    <TextBlock Text="Foo"/>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
+                    <TextBlock Text="Foo"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -5,6 +5,8 @@ using FileTagExporter.Models;
 
 namespace FileTagExporter.ValueConverters;
 
+
+[ValueConversion(typeof(int), typeof(OverwriteBehavior))]
 public class OverwriteBehaviorValueConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

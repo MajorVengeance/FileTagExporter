@@ -5,6 +5,7 @@ using FileTagExporter.Models;
 
 namespace FileTagExporter.ValueConverters;
 
+[ValueConversion(typeof(int), typeof(FileType))]
 public class FileTypeValueConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
