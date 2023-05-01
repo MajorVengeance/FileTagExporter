@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:valueConverters="clr-namespace:FileTagExporter.ValueConverters"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600">
     <UserControl.Resources>
         <valueConverters:FileTypeValueConverter x:Key="radioBoolToFileTypeConverter"/>
@@ -29,7 +29,7 @@
             <ColumnDefinition Width="20*" MinWidth="80"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="1"
-            Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Margin="0 5 0 5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MaxWidth="40"/>
@@ -47,7 +47,7 @@
                 <Button Grid.Column="3" x:Name="refreshName" Command="{Binding Path=OpenFileDialogCommand}" 
                     Style="{DynamicResource MaterialDesignRaisedSecondaryButton}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FolderOpenOutline"/>
+                        <materialDesign:PackIcon Kind="FolderOpenOutline" Margin="2 0"/>
                         <TextBlock Text="Select File"></TextBlock>
                     </StackPanel>
                 </Button>

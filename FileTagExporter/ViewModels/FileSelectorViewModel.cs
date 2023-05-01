@@ -11,8 +11,8 @@ public partial class FileSelectorViewModel : ViewModel
 {
     public FileSelectorViewModel()
     {
-        SelectFolder = FileType.None;
-        OverwriteBehavior = OverwriteBehavior.Ignore;
+        Init();
+
         OpenFileDialogCommand = new RelayCommand(OpenFileDialog, OpenFileDialogCommandCanExecute);
         StartProcessCommand = new RelayCommand(StartProcess);
 
@@ -20,6 +20,13 @@ public partial class FileSelectorViewModel : ViewModel
         {
             m.Reply(new FileDetails(Path, SelectFolder, OverwriteBehavior));
         });
+    }
+
+    private void Init()
+    {
+        SelectFolder = FileType.None;
+        OverwriteBehavior = OverwriteBehavior.Ignore;
+        Path = string.Empty;
     }
 
     [ObservableProperty]
@@ -41,8 +48,11 @@ public partial class FileSelectorViewModel : ViewModel
 
     private void OpenFileDialog()
     {
-        var dialog = new CommonOpenFileDialog();
-        dialog.IsFolderPicker = SelectFolder == FileType.Directory;
+        var dialog = new CommonOpenFileDialog
+        {
+            IsFolderPicker = SelectFolder == FileType.Directory
+        };
+
         CommonFileDialogResult result = dialog.ShowDialog();
         if (result == CommonFileDialogResult.Ok)
         {

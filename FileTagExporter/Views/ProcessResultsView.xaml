@@ -7,8 +7,14 @@
              xmlns:converters="clr-namespace:FileTagExporter.ValueConverters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="DeepSkyBlue"
-             d:DesignHeight="450" d:DesignWidth="800">
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"   
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="250" d:DesignWidth="600">
     <UserControl.Resources>
         <converters:StringListToStringValueConverter x:Key="ListValueConverter"/>
     </UserControl.Resources>
@@ -20,30 +26,37 @@
         <DataGrid Grid.Row="0" ItemsSource="{Binding Path=ProcessResults}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"/>
+                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
                 <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"/>
                 <DataGridTextColumn Binding="{Binding Path=Tags, Converter={StaticResource ListValueConverter}}" Header="Tags"/>
-                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
-                    <TextBlock Text="Foo"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="110"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding GoBackCommand}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Margin="0 2 3 0"/>
+                    <TextBlock Text="Go Back" Padding="0 0 2 0"/>
                 </StackPanel>
             </Button>
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
-                    <TextBlock Text="Foo"/>
+
+            <Button Grid.Column="2" Margin="5 0 5 0" Command="{Binding ExportCsvCommand}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Comma" Margin="0 2 5 0"/>
+                    <TextBlock Text="CSV"/>
                 </StackPanel>
             </Button>
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="FolderOpenOutline"/>
-                    <TextBlock Text="Foo"/>
+            <Button Grid.Column="3" Margin="5 0 5 0" Command="{Binding ExportJsonCommand}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="CodeJson" Margin="0 2 5 0"/>
+                    <TextBlock Text="Json"/>
                 </StackPanel>
             </Button>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
