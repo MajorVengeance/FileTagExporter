@@ -11,7 +11,7 @@ namespace FileTagExporter.Services;
 
 public interface ITagConversionService
 {
-    public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior);
+    public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior, bool recursive);
 
     event EventHandler<ProcessStatusEventArgs> ProcessStatusEvent;
 }
@@ -20,19 +20,20 @@ internal class TagConversionService : ITagConversionService
 {
     public event EventHandler<ProcessStatusEventArgs>? ProcessStatusEvent;
 
-    public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior)
+    public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior, bool recursive)
     {
-        return Task.Run(() => ConvertTagsToSubject(path, fileType, overwriteBehavior));
+        return Task.Run(() => ConvertTagsToSubject(path, fileType, overwriteBehavior, recursive));
     }
 
-    private List<ImageData> ConvertTagsToSubject(string path, FileType fileType, OverwriteBehavior overwriteBehavior)
+    private List<ImageData> ConvertTagsToSubject(string path, FileType fileType, OverwriteBehavior overwriteBehavior, bool recursive)
     {
         try
         {
             var data = new List<ImageData>();
 
             if (fileType is FileType.Directory)
-                data = Directory.GetFiles(path).Select(a => new ImageData(a)).ToList();
+                data = Directory.GetFiles(path, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
+                    .Select(a => new ImageData(a)).ToList();
             else
                 data.Add(new ImageData(path));
 

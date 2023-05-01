@@ -18,7 +18,7 @@ public partial class FileSelectorViewModel : ViewModel
 
         WeakReferenceMessenger.Default.Register<FileSelectorViewModel, FileDetailsRequestMessage>(this, (r, m) =>
         {
-            m.Reply(new FileDetails(Path, SelectFolder, OverwriteBehavior));
+            m.Reply(new FileDetails(Path, SelectFolder, OverwriteBehavior, Recursive));
         });
     }
 
@@ -27,22 +27,35 @@ public partial class FileSelectorViewModel : ViewModel
         SelectFolder = FileType.None;
         OverwriteBehavior = OverwriteBehavior.Ignore;
         Path = string.Empty;
+        Recursive = false;
+    }
+
+    partial void OnSelectFolderChanged(FileType oldValue, FileType newValue)
+    {
+        if (newValue != FileType.Directory)
+            Recursive = false;
     }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PathHasValue))]
     private string? _path;
 
+    [ObservableProperty]
+    private bool _recursive;
+
     public bool PathHasValue => !string.IsNullOrWhiteSpace(Path);
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(OpenFileDialogCommand))]
+    [NotifyPropertyChangedFor(nameof(IsDirectory))]
     private FileType _selectFolder;
 
     [ObservableProperty]
     private OverwriteBehavior _overwriteBehavior;
 
     public IRelayCommand OpenFileDialogCommand { get; }
+
+    public bool IsDirectory => SelectFolder == FileType.Directory;
 
     public bool OpenFileDialogCommandCanExecute() => SelectFolder != FileType.None;
 
@@ -67,4 +80,6 @@ public partial class FileSelectorViewModel : ViewModel
         WeakReferenceMessenger.Default.Send(new NavigationRequestMessage(typeof(ProcessResultsViewModel)));
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(true, "Loading")));
     }
+
+    
 }
