@@ -9,6 +9,22 @@ namespace FileTagExporter.ViewModels;
 
 public partial class FileSelectorViewModel : ViewModel
 {
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PathHasValue))]
+    private string? _path;
+
+    [ObservableProperty]
+    private bool _recursive;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(OpenFileDialogCommand))]
+    [NotifyPropertyChangedFor(nameof(IsDirectory))]
+    private FileType _selectFolder;
+
+    [ObservableProperty]
+    private OverwriteBehavior _overwriteBehavior;
+
     public FileSelectorViewModel()
     {
         Init();
@@ -22,40 +38,13 @@ public partial class FileSelectorViewModel : ViewModel
         });
     }
 
-    private void Init()
-    {
-        SelectFolder = FileType.None;
-        OverwriteBehavior = OverwriteBehavior.Ignore;
-        Path = string.Empty;
-        Recursive = false;
-    }
-
-    partial void OnSelectFolderChanged(FileType oldValue, FileType newValue)
-    {
-        if (newValue != FileType.Directory)
-            Recursive = false;
-    }
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(PathHasValue))]
-    private string? _path;
-
-    [ObservableProperty]
-    private bool _recursive;
-
     public bool PathHasValue => !string.IsNullOrWhiteSpace(Path);
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(OpenFileDialogCommand))]
-    [NotifyPropertyChangedFor(nameof(IsDirectory))]
-    private FileType _selectFolder;
-
-    [ObservableProperty]
-    private OverwriteBehavior _overwriteBehavior;
+    public bool IsDirectory => SelectFolder == FileType.Directory;
 
     public IRelayCommand OpenFileDialogCommand { get; }
 
-    public bool IsDirectory => SelectFolder == FileType.Directory;
+    public IRelayCommand StartProcessCommand { get; }
 
     public bool OpenFileDialogCommandCanExecute() => SelectFolder != FileType.None;
 
@@ -73,13 +62,28 @@ public partial class FileSelectorViewModel : ViewModel
         }
     }
 
-    public IRelayCommand StartProcessCommand { get; }
-
     private void StartProcess()
     {
         WeakReferenceMessenger.Default.Send(new NavigationRequestMessage(typeof(ProcessResultsViewModel)));
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(true, "Loading")));
     }
 
-    
+    private void Init()
+    {
+        SelectFolder = FileType.None;
+        OverwriteBehavior = OverwriteBehavior.Ignore;
+        Path = string.Empty;
+        Recursive = false;
+    }
+
+    partial void OnSelectFolderChanged(FileType oldValue, FileType newValue)
+    {
+        if (newValue != FileType.Directory)
+            Recursive = false;
+    }
+
+    protected override void NavigationComplete()
+    {
+        Init();
+    }
 }

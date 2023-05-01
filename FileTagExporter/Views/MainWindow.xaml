@@ -11,7 +11,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource MaterialDesignLightBackground}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="File Tag Exporter" Height="250" Width="600"
@@ -48,7 +48,7 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="ContentRoot">
-            <ContentControl Grid.Column="1" Content="{Binding Path=Navigation.CurrentView}"/>
+            <ContentControl Margin="15" Content="{Binding Path=Navigation.CurrentView}"/>
         </Grid>
     </Grid>
 </Window>

@@ -5,13 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:valueConverters="clr-namespace:FileTagExporter.ValueConverters"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Regular"
-             TextElement.FontSize="13"
-             TextOptions.TextFormattingMode="Ideal" 
-             TextOptions.TextRenderingMode="Auto"        
-             Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600">
     <UserControl.Resources>
@@ -19,75 +12,77 @@
         <valueConverters:OverwriteBehaviorValueConverter x:Key="boolToOverwriteBehavior"/>
         <valueConverters:FileTypeToVisibilityValueConverter x:Key="fileTypeToVisibility"/>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*" MinWidth="20"/>
-            <ColumnDefinition Width="100*" MinWidth="400"/>
-            <ColumnDefinition Width="20*" MinWidth="80"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="1"
+    <materialDesign:Card >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*" MinWidth="20"/>
+                <ColumnDefinition Width="100*" MinWidth="400"/>
+                <ColumnDefinition Width="20*" MinWidth="80"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="1"
                     Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid Margin="0 5 0 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" MaxWidth="40"/>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="125"/>
-                    <ColumnDefinition Width="*" MaxWidth="40"/>
-                </Grid.ColumnDefinitions>
-                <RadioButton Grid.Column="1" Margin="8 0 8 0"
+                <Grid Margin="0 5 0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MaxWidth="40"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*" MaxWidth="40"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="1" Margin="8 0 8 0"
                                  IsChecked="{Binding Path=SelectFolder, Converter={StaticResource radioBoolToFileTypeConverter}, ConverterParameter=1}" 
                                  Style="{DynamicResource MaterialDesignRadioButton}" Content="File"/>
-                <RadioButton Grid.Column="2" Margin="8 0 8 0" 
+                    <RadioButton Grid.Column="2" Margin="8 0 8 0" 
                                  IsChecked="{Binding Path=SelectFolder, Converter={StaticResource radioBoolToFileTypeConverter}, ConverterParameter=2}" 
                                  Style="{DynamicResource MaterialDesignRadioButton}" Content="Folder"/>
-                <Button Grid.Column="3" x:Name="refreshName" Command="{Binding Path=OpenFileDialogCommand}" 
+                    <Button Grid.Column="3" x:Name="refreshName" Command="{Binding Path=OpenFileDialogCommand}" 
                     Style="{DynamicResource MaterialDesignRaisedSecondaryButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FolderOpenOutline" Margin="2 0"/>
-                        <TextBlock Text="Select File"></TextBlock>
-                    </StackPanel>
-                </Button>
-            </Grid>
-            <Grid Margin="0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*" MinWidth="200"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Selected File: " Margin="0 10 0 0" Style="{DynamicResource MaterialDesignBody1TextBlock}"/>
-                <TextBox Grid.Column="1" x:Name="filePath" Text="{Binding Path=Path, Mode=OneWay}"
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FolderOpenOutline" Margin="2 0"/>
+                            <TextBlock Text="Select File"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <Grid Margin="0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*" MinWidth="200"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Selected File: " Margin="0 10 0 0" Style="{DynamicResource MaterialDesignBody1TextBlock}"/>
+                    <TextBox Grid.Column="1" x:Name="filePath" Text="{Binding Path=Path, Mode=OneWay}"
                          IsReadOnly="True" Margin="0 10 0 0" Style="{DynamicResource MaterialDesignTextBox}"/>
-            </Grid>
-            <TextBlock Text="Subject Overwrite Behavior:" Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <RadioButton Margin="8 0 8 0"
+                </Grid>
+                <TextBlock Text="Subject Overwrite Behavior:" Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <RadioButton Margin="8 0 8 0"
                                  IsChecked="{Binding Path=OverwriteBehavior, Converter={StaticResource boolToOverwriteBehavior}, ConverterParameter=0}" 
                                  Style="{DynamicResource MaterialDesignRadioButton}" Content="Skip File"/>
-                <RadioButton Margin="8 0 8 0"
+                    <RadioButton Margin="8 0 8 0"
                                  IsChecked="{Binding Path=OverwriteBehavior, Converter={StaticResource boolToOverwriteBehavior}, ConverterParameter=1}" 
                                  Style="{DynamicResource MaterialDesignRadioButton}" Content="Append to Subject"/>
-                <RadioButton Margin="8 0 8 0"
+                    <RadioButton Margin="8 0 8 0"
                                  IsChecked="{Binding Path=OverwriteBehavior, Converter={StaticResource boolToOverwriteBehavior}, ConverterParameter=2}" 
                                  Style="{DynamicResource MaterialDesignRadioButton}" Content="Overwrite Subject"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0"
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0"
                         IsEnabled="{Binding IsDirectory}">
-            <ToggleButton Style="{DynamicResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Path=Recursive}"/>
-            <TextBlock Text="Recursive?" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
-        </StackPanel>
-        <Button Grid.Column="2" Grid.Row="1" Margin="5 0 10 0"
+                <ToggleButton Style="{DynamicResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Path=Recursive}"/>
+                <TextBlock Text="Recursive?" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+            </StackPanel>
+            <Button Grid.Column="2" Grid.Row="1" Margin="5 0 10 0"
                 Visibility="{Binding PathHasValue, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
                 Command="{Binding Path=StartProcessCommand}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Margin="5 0 0 0" Style="{DynamicResource MaterialDesignButtonTextBlock}" Text="Go"/>
-                <materialDesign:PackIcon Margin="0 0 5 0" Kind="Play" VerticalAlignment="Bottom"/>
-            </StackPanel>
-        </Button>
-    </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Margin="5 0 0 0" Style="{DynamicResource MaterialDesignButtonTextBlock}" Text="Go"/>
+                    <materialDesign:PackIcon Margin="0 0 5 0" Kind="Play" VerticalAlignment="Bottom"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </materialDesign:Card>
 </UserControl>

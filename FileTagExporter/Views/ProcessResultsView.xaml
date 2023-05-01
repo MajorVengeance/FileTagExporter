@@ -18,45 +18,47 @@
     <UserControl.Resources>
         <converters:StringListToStringValueConverter x:Key="ListValueConverter"/>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" ItemsSource="{Binding Path=ProcessResults}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"/>
-                <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
-                <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"/>
-                <DataGridTextColumn Binding="{Binding Path=Tags, Converter={StaticResource ListValueConverter}}" Header="Tags"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="110"/>
-                <ColumnDefinition Width="110"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding GoBackCommand}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="ArrowLeft" Margin="0 2 3 0"/>
-                    <TextBlock Text="Go Back" Padding="0 0 2 0"/>
-                </StackPanel>
-            </Button>
+    <materialDesign:Card>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="0" ItemsSource="{Binding Path=ProcessResults}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"/>
+                    <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
+                    <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"/>
+                    <DataGridTextColumn Binding="{Binding Path=Tags, Converter={StaticResource ListValueConverter}}" Header="Tags"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignPaperSecondaryButton}" Command="{Binding GoBackCommand}" Foreground="{DynamicResource MaterialDesignLightForeground}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Margin="0 1 3 0"/>
+                        <TextBlock Text="Go Back" Padding="0 0 2 0"/>
+                    </StackPanel>
+                </Button>
 
-            <Button Grid.Column="2" Margin="5 0 5 0" Command="{Binding ExportCsvCommand}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Comma" Margin="0 2 5 0"/>
-                    <TextBlock Text="CSV"/>
-                </StackPanel>
-            </Button>
-            <Button Grid.Column="3" Margin="5 0 5 0" Command="{Binding ExportJsonCommand}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="CodeJson" Margin="0 2 5 0"/>
-                    <TextBlock Text="Json"/>
-                </StackPanel>
-            </Button>
+                <Button Grid.Column="2" Margin="5 0 5 0" Command="{Binding ExportCsvCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Comma" Margin="0 2 5 0"/>
+                        <TextBlock Text="CSV"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="3" Margin="5 0 5 0" Command="{Binding ExportJsonCommand}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="CodeJson" Margin="0 2 5 0"/>
+                        <TextBlock Text="Json"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:Card>
 </UserControl>

@@ -108,7 +108,7 @@ public partial class ProcessResultsViewModel : ViewModel
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(!e.IsComplete, e.StatusMessage)));
     }
 
-    public override async void NavigationComplete()
+    protected override async void NavigationComplete()
     {
         FileDetails = await WeakReferenceMessenger.Default.Send<FileDetailsRequestMessage>();
         _tagConversionTask = _tagConversionService.ConvertTagsToSubjectAsync(FileDetails.Path!, FileDetails.FileType, FileDetails.OverwriteBehavior, FileDetails.Recursive);
