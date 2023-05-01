@@ -72,7 +72,7 @@ public partial class ProcessResultsViewModel : ViewModel
             using var jsonWriter = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = true });
             document.WriteTo(jsonWriter);
             jsonWriter.Flush();
-            File.WriteAllText(exportFilePath, System.Text.Encoding.UTF8.GetString(stream.ToArray()));
+            File.WriteAllText(exportFilePath, Encoding.UTF8.GetString(stream.ToArray()));
         }
 
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(false, string.Empty)));
@@ -108,7 +108,7 @@ public partial class ProcessResultsViewModel : ViewModel
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(!e.IsComplete, e.StatusMessage)));
     }
 
-    protected override async void NavigationComplete()
+    public override async void NavigationComplete()
     {
         FileDetails = await WeakReferenceMessenger.Default.Send<FileDetailsRequestMessage>();
         _tagConversionTask = _tagConversionService.ConvertTagsToSubjectAsync(FileDetails.Path!, FileDetails.FileType, FileDetails.OverwriteBehavior, FileDetails.Recursive);

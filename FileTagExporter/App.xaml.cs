@@ -39,7 +39,7 @@ public partial class App : Application
     {
         await AppHost!.StartAsync();
         var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-        AppHost.Services.GetRequiredService<IMessenger>().RegisterAll<int>(this, 0);
+        //AppHost.Services.GetRequiredService<IMessenger>().RegisterAll(this, 0);
         mainWindow.Show();
 
         base.OnStartup(e);

@@ -5,5 +5,5 @@ namespace FileTagExporter.ViewModels;
 
 public abstract class ViewModel : ObservableRecipient
 {
-    protected virtual void NavigationComplete() { }
+    public virtual void NavigationComplete() { }
 }

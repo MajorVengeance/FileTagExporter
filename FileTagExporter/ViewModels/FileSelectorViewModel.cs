@@ -82,7 +82,7 @@ public partial class FileSelectorViewModel : ViewModel
             Recursive = false;
     }
 
-    protected override void NavigationComplete()
+    public override void NavigationComplete()
     {
         Init();
     }

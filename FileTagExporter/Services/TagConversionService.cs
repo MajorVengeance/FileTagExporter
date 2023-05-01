@@ -20,6 +20,10 @@ internal class TagConversionService : ITagConversionService
 {
     public event EventHandler<ProcessStatusEventArgs>? ProcessStatusEvent;
 
+    private const string _fileSubjectSkipping = "File Subject already contains value: Skipping";
+    private const string _fileSubjectUpdated = "File Subject updated";
+    private const string _fileTagsMissing = "File has no Tags: Skipping";
+
     public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior, bool recursive)
     {
         return Task.Run(() => ConvertTagsToSubject(path, fileType, overwriteBehavior, recursive));
@@ -51,22 +55,27 @@ internal class TagConversionService : ITagConversionService
                     {
                         case OverwriteBehavior.Ignore:
                             if (string.IsNullOrEmpty(subjectValue))
+                            {
                                 writer.WriteProperty(shellFile.Properties.System.Subject, tagsValue);
+                                file.Status = _fileSubjectUpdated;
+                            }
                             else
-                                file.Status = "File Subject already contains value: Skipping";
+                                file.Status = _fileSubjectSkipping;
                             break;
                         case OverwriteBehavior.Append:
                             var subject = $"{subjectValue}{(string.IsNullOrEmpty(subjectValue) ? "" : ";")}{tagsValue}";
                             writer.WriteProperty(shellFile.Properties.System.Subject, subject);
+                            file.Status = _fileSubjectUpdated;
                             break;
                         case OverwriteBehavior.Overwrite:
                             writer.WriteProperty(shellFile.Properties.System.Subject, tagsValue);
+                            file.Status = _fileSubjectUpdated;
                             break;
                     }
                 }
                 else
                 {
-                    file.Status = "File has no Tags: Skipping";
+                    file.Status = _fileTagsMissing;
                 }
                 writer.Close();
 
@@ -77,7 +86,7 @@ internal class TagConversionService : ITagConversionService
                 }
             }
 
-            OnRaiseProcessStatusEvent(new ProcessStatusEventArgs() { StatusMessage = $"Finished processing files, generating results" });
+            OnRaiseProcessStatusEvent(new ProcessStatusEventArgs() { StatusMessage = "Finished processing files, generating results" });
 
             foreach (var file in data)
             {

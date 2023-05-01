@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="File Tag Exporter" Height="250" Width="600"
-        MinHeight="225" MinWidth="500">
+        MinHeight="300" MinWidth="500">
 
     <Grid x:Name="LayoutRoot">
         <Grid x:Name="Overlay" Panel.ZIndex="1000" Visibility="{Binding Path=IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"

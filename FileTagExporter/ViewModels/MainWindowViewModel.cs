@@ -21,8 +21,6 @@ public partial class MainWindowViewModel : ViewModel
     public MainWindowViewModel(INavigationService navigationService)
     {
         Navigation = navigationService;
-        NavigateHomeCommand = new RelayCommand(NavigateHome);
-        NavigateToResultsCommand = new RelayCommand(NavigateToResults);
         WeakReferenceMessenger.Default.Register<LongProcessStatusChangeMessage>(this, LongProcessStatusChangeMessageReceived);
         WeakReferenceMessenger.Default.Register<NavigationRequestMessage>(this, (r, m) =>
         {
@@ -30,17 +28,6 @@ public partial class MainWindowViewModel : ViewModel
         });
 
         NavigateTo<FileSelectorViewModel>();
-    }
-
-    
-
-    public RelayCommand NavigateHomeCommand { get; set; }
-    public RelayCommand NavigateToResultsCommand { get; set; }
-
-    public void NavigateToResults()
-    {
-        StatusText = "Threading the needle";
-        //NavigationService.NavigateTo<ProcessResultsViewModel>();
     }
 
     public void NavigateHome()
@@ -58,7 +45,7 @@ public partial class MainWindowViewModel : ViewModel
             Navigation.NavigateTo<ProcessResultsViewModel>();
     }
 
-    public void LongProcessStatusChangeMessageReceived(object recipient, LongProcessStatusChangeMessage message)
+    public static void LongProcessStatusChangeMessageReceived(object recipient, LongProcessStatusChangeMessage message)
     {
         if (recipient is not MainWindowViewModel r)
             return;
