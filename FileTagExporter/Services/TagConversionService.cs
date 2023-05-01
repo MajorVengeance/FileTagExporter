@@ -18,7 +18,7 @@ public interface ITagConversionService
 
 internal class TagConversionService : ITagConversionService
 {
-    public event EventHandler<ProcessStatusEventArgs> ProcessStatusEvent;
+    public event EventHandler<ProcessStatusEventArgs>? ProcessStatusEvent;
 
     public Task<List<ImageData>> ConvertTagsToSubjectAsync(string path, FileType fileType, OverwriteBehavior overwriteBehavior)
     {

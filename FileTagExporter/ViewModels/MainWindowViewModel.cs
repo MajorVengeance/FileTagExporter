@@ -60,8 +60,8 @@ public partial class MainWindowViewModel : ViewModel
 
     public void LongProcessStatusChangeMessageReceived(object recipient, LongProcessStatusChangeMessage message)
     {
-        var r = recipient as MainWindowViewModel;
-
+        if (recipient is not MainWindowViewModel r)
+            return;
         r.IsLoading = message.Value.IsRunning;
         r.StatusText = message.Value.StatusText;
     }
