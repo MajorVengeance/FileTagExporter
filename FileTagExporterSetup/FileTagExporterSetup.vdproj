@@ -68,12 +68,23 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
     }
     "Deployable"
@@ -162,7 +173,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FileTagExporter"
         "ProductCode" = "8:{9F812F42-A2D9-4681-BDEB-1D2CC0A4D3B4}"
-        "PackageCode" = "8:{FC045F55-CC85-49E4-80E8-B361897A7901}"
+        "PackageCode" = "8:{CC8D773F-A4CE-4226-BD39-6DB1C02CCC73}"
         "UpgradeCode" = "8:{42464375-272B-4428-A724-656905977046}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -711,7 +722,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6CC76041C9C449299D80E60F571D56D3"
             {
-            "SourcePath" = "8:..\\FileTagExporter\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\FileTagExporter\\bin\\Release\\net6.0-windows\\publish\\win-x64\\FileTagExporter.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9D28096E948441AEBF884081AB80098B"
