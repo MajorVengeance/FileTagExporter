@@ -45,7 +45,8 @@
                         <TextBlock Text="Go Back" Padding="0 0 2 0"/>
                     </StackPanel>
                 </Button>
-
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                           Style="{DynamicResource MaterialDesignHelperTextBlock}" Text="Export File:" Margin="0 0 5 0"/>
                 <Button Grid.Column="2" Margin="5 0 5 0" Command="{Binding ExportCsvCommand}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="Comma" Margin="0 2 5 0"/>
