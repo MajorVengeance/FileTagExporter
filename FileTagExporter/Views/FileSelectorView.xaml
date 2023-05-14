@@ -56,7 +56,7 @@
                     <TextBox Grid.Column="1" x:Name="filePath" Text="{Binding Path=Path, Mode=OneWay}"
                          IsReadOnly="True" Margin="0 10 0 0" Style="{DynamicResource MaterialDesignTextBox}"/>
                 </Grid>
-                <TextBlock Text="Subject Overwrite Behavior:" Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
+                <TextBlock Text="Title Overwrite Behavior:" Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <RadioButton Margin="8 0 8 0"
                                  IsChecked="{Binding Path=OverwriteBehavior, Converter={StaticResource boolToOverwriteBehavior}, ConverterParameter=0}" 
