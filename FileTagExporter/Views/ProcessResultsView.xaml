@@ -28,7 +28,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Location}" Header="Location"/>
                     <DataGridTextColumn Binding="{Binding Path=Status}" Header="Status"/>
-                    <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Subject"/>
+                    <DataGridTextColumn Binding="{Binding Path=Subject}" Header="Title"/>
                     <DataGridTextColumn Binding="{Binding Path=Tags, Converter={StaticResource ListValueConverter}}" Header="Tags"/>
                 </DataGrid.Columns>
             </DataGrid>

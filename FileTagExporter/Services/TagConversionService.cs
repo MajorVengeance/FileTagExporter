@@ -57,7 +57,7 @@ internal class TagConversionService : ITagConversionService
                 {
                     using var shellFile = new ShellFile(file.Location!);
                     var writer = shellFile.Properties.GetPropertyWriter();
-                    var subjectValue = shellFile.Properties.System.Subject.Value;
+                    var subjectValue = shellFile.Properties.System.Title.Value;
                     var tagsValue = string.Join("; ", shellFile.Properties.System.Keywords.Value ?? Array.Empty<string>());
                     if (shellFile.Properties.System.Keywords.Value != null && shellFile.Properties.System.Keywords.Value.Any())
                     {
@@ -66,7 +66,7 @@ internal class TagConversionService : ITagConversionService
                             case OverwriteBehavior.Ignore:
                                 if (string.IsNullOrEmpty(subjectValue))
                                 {
-                                    writer.WriteProperty(shellFile.Properties.System.Subject, tagsValue);
+                                    writer.WriteProperty(shellFile.Properties.System.Title, tagsValue);
                                     file.Status = _fileSubjectUpdated;
                                 }
                                 else
@@ -74,11 +74,11 @@ internal class TagConversionService : ITagConversionService
                                 break;
                             case OverwriteBehavior.Append:
                                 var subject = $"{subjectValue}{(string.IsNullOrEmpty(subjectValue) ? "" : ";")}{tagsValue}";
-                                writer.WriteProperty(shellFile.Properties.System.Subject, subject);
+                                writer.WriteProperty(shellFile.Properties.System.Title, subject);
                                 file.Status = _fileSubjectUpdated;
                                 break;
                             case OverwriteBehavior.Overwrite:
-                                writer.WriteProperty(shellFile.Properties.System.Subject, tagsValue);
+                                writer.WriteProperty(shellFile.Properties.System.Title, tagsValue);
                                 file.Status = _fileSubjectUpdated;
                                 break;
                         }
@@ -111,7 +111,7 @@ internal class TagConversionService : ITagConversionService
                     continue;
                 }
                 using var shellFile = new ShellFile(file.Location!);
-                file.Subject = shellFile.Properties.System.Subject.Value;
+                file.Subject = shellFile.Properties.System.Title.Value;
                 file.Tags = shellFile.Properties.System.Keywords.Value?.ToList();
             }
 
