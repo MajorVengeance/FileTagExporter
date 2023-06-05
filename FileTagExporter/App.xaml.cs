@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using CommunityToolkit.Mvvm.Messaging;
+using FileTagExporter.Helpers;
 using FileTagExporter.Messages;
 using FileTagExporter.Services;
 using FileTagExporter.ViewModels;
@@ -33,13 +34,13 @@ public partial class App : Application
                 services.AddSingleton<ITagConversionService, TagConversionService>();
             })
             .Build();
+        DispatcherHelper.Initialize();
     }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
         await AppHost!.StartAsync();
         var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-        //AppHost.Services.GetRequiredService<IMessenger>().RegisterAll(this, 0);
         mainWindow.Show();
 
         base.OnStartup(e);

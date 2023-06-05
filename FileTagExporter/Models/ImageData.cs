@@ -11,7 +11,7 @@ public class ImageData
 
     public string? Location { get; set; }
     
-    public string? Subject { get; set; }
+    public string? Title { get; set; }
 
     public List<string>? Tags { get; set; }
 

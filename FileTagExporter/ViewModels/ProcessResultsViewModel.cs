@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using FileTagExporter.Events;
+using FileTagExporter.Helpers;
 using FileTagExporter.Messages;
 using FileTagExporter.Models;
 using FileTagExporter.Services;
@@ -45,6 +47,11 @@ public partial class ProcessResultsViewModel : ViewModel
 
     public bool ExportCommandCanExecute() => ProcessResults.Count > 0;
 
+    private void NotifyUpdates()
+    {
+        DispatcherHelper.CheckBeginInvokeOnUI(() => ExportJsonCommand.NotifyCanExecuteChanged());
+        DispatcherHelper.CheckBeginInvokeOnUI(() => ExportCsvCommand.NotifyCanExecuteChanged());
+    }
 
     private void ExportCsv()
     {
@@ -53,9 +60,9 @@ public partial class ProcessResultsViewModel : ViewModel
         if(exportFilePath != null)
         {
             var csv = new StringBuilder();
-            csv.AppendLine("Location,Subject,Tags,Status");
+            csv.AppendLine("Location,Title,Tags,Status");
             ProcessResults.ForEach(r => csv.AppendLine(
-                $"{r.Location},{r.Subject},{string.Join("; ", r.Tags ?? new List<string>())},{r.Status}"));
+                $"{r.Location},{r.Title},{string.Join("; ", r.Tags ?? new List<string>())},{r.Status}"));
             File.WriteAllText(exportFilePath, csv.ToString());
         }
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(false, string.Empty)));
@@ -106,6 +113,7 @@ public partial class ProcessResultsViewModel : ViewModel
         if (e.IsComplete)
             ProcessResults = await _tagConversionTask!;
         WeakReferenceMessenger.Default.Send(new LongProcessStatusChangeMessage(new(!e.IsComplete, e.StatusMessage)));
+        NotifyUpdates();
     }
 
     public override async void NavigationComplete()

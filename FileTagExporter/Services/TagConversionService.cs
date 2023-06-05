@@ -111,7 +111,7 @@ internal class TagConversionService : ITagConversionService
                     continue;
                 }
                 using var shellFile = new ShellFile(file.Location!);
-                file.Subject = shellFile.Properties.System.Title.Value;
+                file.Title = shellFile.Properties.System.Title.Value;
                 file.Tags = shellFile.Properties.System.Keywords.Value?.ToList();
             }
 
